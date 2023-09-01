@@ -1,6 +1,8 @@
 -- CYCLISTIC SQL ANALYSIS
 
 -- This is after all 3 tables (January, February, March) were used in UNION to create a consolidated table. 
+
+
 -- TOTAL TRIPS FOR MEMBERS VS. CASUAL RIDERS
 SELECT total_trips, 
 	total_member_trips,
