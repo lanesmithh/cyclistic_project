@@ -1,0 +1,85 @@
+# cyclistic_project
+Google Analytics Capstone Project - Bikeshare Analysis
+
+DEFINING THE PROBLEM
+How does Cyclistic’s marketing team target casual riders to convert them into annual members? 
+We may first gain a general understanding of some patterns that are present in the two separate groups by examining the data. More accurate customer profiles for each category will be available after the distinctions are understood. The marketing analytics team will use these insights to create high-quality, strategically focused marketing to turn casual riders into members. 
+BUSINESS TASK
+We will be using public data from Cyclistic to analyze Q1 of 2023 (Jan. 1 - Mar. 31.) The data is organized in rows and columns with each record representing one trip including a unique field that identifies it: ride_id. The columns are as follows: 
+* ride_id               #Ride id - unique
+* rideable_type         #Bike type - Classic, Docked, Electric
+* started_at            #Trip start day and time
+* ended_at              #Trip end day and time
+* start_station_name    #Start station
+* start_station_id      #Start station id
+* end_station_name      #End station
+* end_station_id        #End station id
+* start_lat             #Start latitude  
+* start_lng             #Start longitude   
+* end_lat               #End latitude  
+* end_lat               #End longitude   
+* member_casual         #Rider type - Member or Casual  
+
+CLEANING & MANIPULATION
+I launched the three files (January, February, March) in excel for a first look. The following steps were taken to ensure reliability, cleanliness, and appropriate analysis preparation. 
+The started_at column was formatted as: 1/21/23 8:05 PM. I split this column into two for clarity and future uses (start_time & start_date.) 
+For time: =$started_at - INT($started_at) 
+HH:MM
+For date: = INT($started_at)
+mm/dd/yy
+Created ride_duration column 
+=end_time - start_time 
+HH:MM:SS
+Created day_of_week column.
+ =weekday(start_date,1)
+Formatted as # (1 = Sunday, 7 = Saturday)
+Created an aggregates tab to find the average and max ride durations.
+Built a pivot table calculating the average ride time for member vs casual riders.
+Built a pivot table showing average ride time for day of week.
+Built pivot table showing the count of rides for member vs casual riders.
+
+TRANSITIONING TO MySQL
+Due to the large nature of this data set, we transitioned from Excel to MySql Workbench for further analysis. 
+Uploaded all 3 tables (Jan, feb, march.)
+Edited data types to ensure they were in correct formats.
+Some of the ride_duration columns were returned as #####…, I set these corrupted values to NULL.
+Changed day # to string days of the week.
+Now that the data is cleaned, it is time to dive a little deeper into the data to try to answer some questions.
+Created a union table of all 3 months to have an overall picture of Q1 2023.
+WHAT ARE THE TOTAL TRIPS FOR MEMBERS VS CASUAL?
+Before this was executed, we counted the total amount of rides for Q1: 638,998 (rows)
+Total Trips: 638,998 
+Total Member Trips: 494,122 (77%)
+Total Casual Trips: 144,876 (23%)
+HOW THE AVG RIDE DURATION DIFFERS BETWEEN THESE 2 GROUPS?
+Average Member Duration: 00:16:50
+Average Casual Duration: 00:24:20
+Average Total: 00:18:32
+FIND THE MAX RIDE DURATION FOR BOTH GROUPS. 
+LOOK FOR THE BUSIEST DAY FOR RIDERS.
+Busiest Day For Member: Tuesday
+Busiest Day For Casual: Sunday
+WHAT IS THE AVERAGE RIDE DURATION PER DAY?
+'00:30:04.8097','casual','Sunday'
+'00:26:11.5525','casual','Saturday'
+'00:23:55.0525','casual','Monday'
+'00:23:10.5103','casual','Friday'
+'00:23:10.2401','casual','Tuesday'
+'00:23:03.3073','casual','Wednesday'
+'00:21:41.6655','casual','Thursday'
+'00:18:45.2789','member','Sunday'
+'00:17:51.5407','member','Saturday'
+'00:16:53.4856','member','Wednesday'
+'00:16:50.0608','member','Tuesday'
+'00:16:34.8332','member','Friday'
+'00:16:11.3867','member','Monday'
+'00:15:57.8050','member','Thursday'
+WHAT ARE THE TOTAL TRIPS PER DAY?
+'Tuesday','113,050'
+'Wednesday','107,524'
+'Thursday','95,500'
+'Monday','91,664'
+'Friday','85,148'
+'Sunday','77,162'
+'Saturday','68,950'
+WHAT ARE THE TOP 10 MOST COMMON STARTING LOCATIONS?
